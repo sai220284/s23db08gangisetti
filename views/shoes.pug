@@ -4,7 +4,7 @@ block content
   h1 Search Results - Shoes
 
   //- Part 6: Displaying Results
-  - let results = [
+  - let shoesData = [
     { brand: 'Nike', size: 10, price: 100 },
     { brand: 'Adidas', size: 9, price: 85 },
     { brand: 'Puma', size: 8, price: 75 }
@@ -12,7 +12,7 @@ block content
 
   div.container-fluid
     div.row
-      - for (let shoe of results)
+      - for (let shoe of shoesData)
         div.col-sm-2
           | Brand: #{shoe.brand}
           | Size: #{shoe.size}
