@@ -16,7 +16,7 @@ router.get('/shoes', (req, res) => {
   });
 });
 
-router.get('/shoes', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('shoes', { title: 'Express' });
 });
 

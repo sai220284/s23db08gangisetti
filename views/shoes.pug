@@ -1,19 +1,14 @@
 extends layout
 
 block content
-  h1 Search Results - Shoes
+  h1= title
 
-  //- Part 6: Displaying Results
-  - let shoesData = [
-    { brand: 'Nike', size: 10, price: 100 },
-    { brand: 'Adidas', size: 9, price: 85 },
-    { brand: 'Puma', size: 8, price: 75 }
-  ]
+  // Loop through shoes and display each shoe
+  each shoe in shoes
+    .shoe
+      p Brand: #{shoe.brand}
+      p Size: #{shoe.size}
+      p Price: $#{shoe.price}
 
-  div.container-fluid
-    div.row
-      - for (let shoe of shoesData)
-        div.col-sm-2
-          | Brand: #{shoe.brand}
-          | Size: #{shoe.size}
-          | Price: $#{shoe.price}
+  // Add a link to go back to the home page
+  a(href="/") Go Back to Home
