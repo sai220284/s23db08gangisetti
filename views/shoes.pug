@@ -2,13 +2,34 @@ extends layout
 
 block content
   h1= title
-
-  // Loop through shoes and display each shoe
-  each shoe in shoes
-    .shoe
-      p Brand: #{shoe.brand}
-      p Size: #{shoe.size}
-      p Price: $#{shoe.price}
-
-  // Add a link to go back to the home page
-  a(href="/") Go Back to Home
+  -
+    let results = [
+      {
+        "shoes_brand": "Nike",
+        "shoes_quantity": "10 items",
+        "shoes_cost": 100
+      },
+      {
+        "shoes_brand": "Adidas",
+        "shoes_quantity": "9 items",
+        "shoes_cost": 200
+      },
+      {
+        "shoes_brand": "Puma",
+        "shoes_quantity": "8 items",
+        "shoes_cost": 300
+      },                   
+    ]
+  div(class= "container-fluid")
+    div(class = "row")
+      each item,index in results
+        div(class= "col-sm-2", onclick=`buy(${index})`) Brand: #{item.shoes_brand}
+        div(class= "col-sm-2", onclick=`buy(${index})`) Quantity: #{item.shoes_quantity}
+        div(class= "col-sm-2", onclick=`buy(${index})`) Cost: #{item.shoes_cost}
+        br
+        br
+        
+  script.
+    function buy(itemNum){
+      alert(`You purchased item ${itemNum+1}`)
+    }
