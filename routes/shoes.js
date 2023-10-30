@@ -9,12 +9,13 @@ var shoesData = [
 ];
 
 // Define a route to render the "Shoes" page
-router.get('/shoes', (req, res) => {
+app.get('/shoes', (req, res) => {
   res.render('shoes', {
     title: 'Search Results - Shoes',
     shoes: shoesData, // Pass the shoe data to the Pug template
   });
 });
+
 
 router.get('/', function(req, res, next) {
   res.render('shoes', { title: 'Express' });
