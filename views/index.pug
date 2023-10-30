@@ -2,4 +2,20 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{'my first pug page'}
+  button(type="button", class="btn btn-secondary", onclick="goFaster()") press me
+  //- Add the following div
+  div(id="faster") Increase the speed.
+
+  // Add the following script block
+  script.
+    var mph = 20;
+    var change = 1;
+
+    function goFaster() {
+      mph += change;
+      change++;
+      var fasterDiv = document.getElementById('faster');
+      fasterDiv.textContent = 'MPH ' + mph + ' with change ' + change;
+    }
+

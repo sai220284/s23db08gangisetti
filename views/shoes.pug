@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 Search Results - Shoes
+
+  //- Part 6: Displaying Results
+  - let results = [
+    { brand: 'Nike', size: 10, price: 100 },
+    { brand: 'Adidas', size: 9, price: 85 },
+    { brand: 'Puma', size: 8, price: 75 }
+  ]
+
+  div.container-fluid
+    div.row
+      - for (let shoe of results)
+        div.col-sm-2
+          | Brand: #{shoe.brand}
+          | Size: #{shoe.size}
+          | Price: $#{shoe.price}
