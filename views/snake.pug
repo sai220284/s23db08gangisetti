@@ -2,10 +2,10 @@ extends layout
 
 block content
   h1= title
-  - let results = [{s_name:"s1",s_age:30,s_length:20},{s_name:"k2",s_age:20,k_length:10},{s_name:"k3",s_age:20,k_length:30}]
+  - let results = [{s_name:"s1",s_age:15,s_length:30},{s_name:"s2",s_age:10,s_length:20},{s_name:"s3",s_age:5,s_length:10}]
    div.container-fluid
     div.row
-     each kangaroo,index in results
+     each snake,index in results
       div.col-sm-2(onClick=`buy(${index})`) #{snake.s_name}
       div.col-sm-2(onClick=`buy(${index})`) #{snake.s_age}
       div.col-sm-2(onClick=`buy(${index})`) #{snake.s_length}
