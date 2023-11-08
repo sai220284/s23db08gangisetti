@@ -22,6 +22,24 @@ db.once("open", function(){
 
 
 var Costume = require("./models/costume");
+// We can seed the collection if needed onserver start
+async function recreateDB(){
+// Delete everything
+await Costume.deleteMany();
+let instance1 = new
+Costume({costume_type:"ghost", size:'large',
+cost:15.4});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+).catch(err=>{
+console.error(err)
+});
+}
+let reseed = true;
+if (reseed) {recreateDB();}
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var shoesRouter = require('./routes/shoes');
