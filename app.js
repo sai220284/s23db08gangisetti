@@ -22,7 +22,8 @@ db.once("open", function () {
 });
 async function recreateDB() {
   // Delete everything
-  await Costume.deleteMany();
+  await Costume.deleteMany().maxTimeMS(30000); // Set timeout to 30 seconds
+
   let instance1 = new
     Costume({
       costume_type: "ghost", size: 'large',
