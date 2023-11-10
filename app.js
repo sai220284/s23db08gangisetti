@@ -3,42 +3,53 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var Costume = require("./models/costume");
-require('dotenv').config();
-const connectionString = process.env.MONGO_CON
-mongoose = require('mongoose');
 
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Error connecting to MongoDB: ', err));
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON;
+//console.log(process.env.MONGO_CON);
+const mongoose = require('mongoose');
+
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 //Get the default connection
 var db = mongoose.connection;
-
 //Bind connection to error event
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once("open", function () {
-  console.log("Connection to DB succeeded")
-});
-async function recreateDB() {
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+var shoes = require("./models/shoes");
+
+async function recreateDB(){
   // Delete everything
-  await Costume.deleteMany().maxTimeMS(30000); // Set timeout to 30 seconds
-
+  await shoes.deleteMany();
   let instance1 = new
-    Costume({
-      costume_type: "ghost", size: 'large',
-      cost: 15.4
-    });
-  instance1.save().then(doc => {
-    console.log("First object saved")
-  }
-  ).catch(err => {
-    console.error(err)
+  shoes({ shoes_brand: "Puma", shoes_quantity: "8 items",shoes_cost: 300});
+  instance1.save().then(doc=>{
+  console.log("First object saved")}
+  ).catch(err=>{
+  console.error(err)
   });
-}
-let reseed = true;
-if (reseed) { recreateDB(); }
-
+  let instance2 = new
+  shoes({ shoes_brand: "Adidas", shoes_quantity: "9 items", shoes_cost: 200});
+  instance2.save().then(doc=>{
+  console.log("Second object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+  let instance3 = new
+  shoes({ shoes_brand: "Nike", shoes_quantity: "10 items", shoes_cost: 100});
+  instance3.save().then(doc=>{
+  console.log("Third object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+  }
+  let reseed = true;
+  if (reseed) {recreateDB();}
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -47,7 +58,8 @@ var boardRouter = require('./routes/board');
 var chooseRouter = require('./routes/choose');
 var snakeRouter = require('./routes/snake');
 var resourceRouter = require('./routes/resource');
-const { connection } = require('mongoose');
+
+
 
 var app = express();
 
@@ -69,14 +81,13 @@ app.use('/choose', chooseRouter);
 app.use('/snake', snakeRouter);
 app.use('/resource', resourceRouter);
 
-
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -85,5 +96,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+  
 
 module.exports = app;
