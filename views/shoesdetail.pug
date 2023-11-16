@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  h1= title
+  - let shoesid = toShow._id
+  - let shoes_brand = toShow.shoes_brand
+  - let shoes_cost = toShow.shoes_cost
+  - let shoes_quantity = toShow.shoes_quantity
+
+  div.container
+    div.row.mb-3
+      div.col-3.shoesAttr.mr-3
+        strong.shoesAttr-label Shoes ID:
+      div.col-9
+        span.shoesAttr-value #{shoesid}
+
+    div.row.mb-3
+      div.col-3.shoesAttr.mr-3
+        strong.shoesAttr-label Shoes Brand:
+      div.col-9
+        span.shoesAttr-value #{shoes_brand}
+
+    div.row.mb-3
+      div.col-3.shoesAttr.mr-3
+        strong.shoesAttr-label Shoes Cost:
+      div.col-9
+        span.shoesAttr-value #{shoes_cost}
+
+    div.row.mb-3
+      div.col-3.shoesAttr.mr-3
+        strong.shoesAttr-label Shoes Quantity:
+      div.col-9
+        span.shoesAttr-value #{shoes_quantity}
+
+  style.
+    .shoesAttr {
+      background-color: aquamarine;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .shoesAttr-label {
+      font-weight: bold;
+    }
+
+    .shoesAttr-value {
+      display: inline-block;
+    }

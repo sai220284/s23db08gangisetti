@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  h1= title
+  - let shoesid = toShow._id
+  - let shoes_brand = toShow.shoes_brand
+  - let shoes_quantity = toShow.shoes_quantity
+  - let shoes_cost = toShow.shoes_cost
+
+  div.container
+    div.row.mb-2
+      div.col-12.mr-1
+        p#shoesIdLabel ID is
+        p#shoesId #{shoesid}
+
+    form(id='shoesForm', action= "/resource/shoess/" + shoesid, method="PUT")
+      div.form-group.row
+        label.col-form-label.col-sm-2#shoesBrandLabel(for='shoes_brand') Shoes Brand:
+        div.col-sm-10
+          input#shoes_brand.form-control(type='text', name='shoes_brand', value= shoes_brand)
+
+      div.form-group.row
+        label.col-form-label.col-sm-2#shoesQuantityLabel(for='shoes_quantity') Shoes Quantity:
+        div.col-sm-10
+          input#shoes_quantity.form-control(type='text', name='shoes_quantity', value= shoes_quantity)
+
+      div.form-group.row
+        label.col-form-label.col-sm-2#shoesCostLabel(for='shoes_cost') Shoes Cost:
+        div.col-sm-10
+          input#shoes_cost.form-control(type='number', name='shoes_cost', value= shoes_cost)
+
+      div.form-group.row
+        div.col-sm-10.offset-sm-2
+          button.btn.btn-primary(type="submit") Update
+
+  script.
+    document.forms['shoesForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show the user that the form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeeded");
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error);
+      });
+    });
