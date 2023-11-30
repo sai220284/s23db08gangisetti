@@ -1,26 +1,32 @@
 extends layout
 
 block content
-  h1= title
-  -
-    let result = results
-  div(class= "container-fluid")
-    div(class = "row m-1")
-      each item, index in result
-        - let destination = `dispatch("/shoes/update?id=${item._id}")`
-        div(class= "col-sm-2", onclick=`buy(${index})`) Brand: #{item.shoes_brand}
-        div(class= "col-sm-2", onclick=`buy(${index})`) Quantity: #{item.shoes_quantity}
-        div(class= "col-sm-2", onclick=`buy(${index})`) Cost: #{item.shoes_cost}
-        button.btn(class="btn-primary ml-1", onclick= destination) Update
-        br
-        br
-
+  h1=title
+  - let items = results
+ 
+  div(class="container-fluid")
+    // Create button at the top
+    div(class="row-sm-2 m-1")
+      button.btn(class="btn btn-success", onclick="dispatch('/shoes/create')") Create
+ 
+    each item in items
+      - let updateDestination = `/shoes/update?id=${item._id}`
+      - let detailDestination = `/shoes/detail?id=${item._id}`
+      - let deleteDestination = `/shoes/delete?id=${item._id}`
+ 
+      div(class="row-sm-2 m-1") 
+        | shoes #{item.shoes_brand}(#{shoes_quantity}) is #{item.shoes_cost}
+       
+        // Update button
+        button.btn(class="btn btn-warning", onclick=`dispatch("${updateDestination}")`) Update
+ 
+        // Detail button
+        button.btn(class="btn btn-info", onclick=`dispatch("${detailDestination}")`) Detail
+ 
+        // Delete button
+        button.btn(class="btn btn-danger", onclick=`dispatch("${deleteDestination}")`) Delete
+ 
   script.
-    function buy(itemNum){
-      alert(`You purchased item ${itemNum+1}`)
-    }
-
-  script.
-    function dispatch(path){
-      window.location.href=path
+    function dispatch(path) {
+      window.location.href = path;
     }

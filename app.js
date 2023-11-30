@@ -25,8 +25,7 @@ passport.use(new LocalStrategy(
   return done(err)
   })
   })
- )
-
+ ) 
 
 require('dotenv').config();
 const connectionString = process.env.MONGO_CON;
